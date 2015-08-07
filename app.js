@@ -12,6 +12,7 @@ $(document).ready(
 			getInput();
 		});
         //check keypress on devices
+        //when enter is pressed, create task
         $("#input").on("keypress",function(e){
             if(e.keyCode == 13){
                 getInput();
@@ -86,3 +87,20 @@ function sortTasks(arr){
         return 0;
     });
 }
+function saveTasks(arr){
+    tasks = JSON.stringify(TaskList);
+    try{
+        window.localStorage.setItem("tasks",tasks);
+    }
+    catch(err){
+        showAlet("we are sorry an error has occured");
+    }
+}
+
+function loadTasks(arr){
+    try{
+        t = window.localStorage.getItem("tasks");
+    }
+}
+
+function showAlert(alert){}
