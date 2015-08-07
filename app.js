@@ -101,6 +101,14 @@ function loadTasks(arr){
     try{
         t = window.localStorage.getItem("tasks");
     }
+	catch(err){
+		showAlert("we are sorry an error has occured");
+	}
 }
 
-function showAlert(alert){}
+function showAlert(alert){
+	$("#message").addClass("open").html(alert);
+	timer = setTimeout(function(){
+		$("#message").html("").removeClass("open");
+	},3000);
+}
