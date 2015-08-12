@@ -1,11 +1,12 @@
 //to do list
 //globals
-
 //list of tasks
 var TaskList = [];
 
 $(document).ready(
 	function(){
+        //when app  loads, get the tasks from localstorage
+        loadTasks();
 		//when button clicked create new task if input
 		//is not empty
 		$("#add-button").on("click",function(){
@@ -35,8 +36,9 @@ $(document).ready(
 function getInput(){
     //get value of input
     var taskinput = $("#input").val();
+    console.log(taskinput);
     //if input is not empty
-    if(taskinput!=""){
+    if(taskinput!=""&&taskinput){
         //create task
         createTask(taskinput);
         //clear input
@@ -50,6 +52,8 @@ function createTask(name){
 	task.name = name;
 	task.status = "active";
 	TaskList.push(task);
+    //save tasks
+    saveTasks(TaskList);
 	renderTasks();
 	//return task;
 }
@@ -81,11 +85,11 @@ function updateTask(id,status){
 
 function sortTasks(arr){
     //sort array so done items move to the bottom
-    arr.sort(function(a,b){
-        if(a.status < b.status) return -1;
-        if(a.status > b.status) return 1;
-        return 0;
-    });
+//    arr.sort(function(a,b){
+//        if(a.status < b.status) return -1;
+//        if(a.status > b.status) return 1;
+//        return 0;
+//    });
 }
 function saveTasks(arr){
     tasks = JSON.stringify(TaskList);
@@ -99,7 +103,11 @@ function saveTasks(arr){
 
 function loadTasks(arr){
     try{
-        t = window.localStorage.getItem("tasks");
+        if(window.localStorage.length>0){
+            TaskList = JSON.parse(window.localStorage.getItem("tasks"));
+            //render
+            renderTasks();
+        }
     }
 	catch(err){
 		showAlert("we are sorry an error has occured");
