@@ -51,9 +51,11 @@ function createTask(name){
 	task.id = date.getTime();
 	task.name = name;
 	task.status = "active";
+    //add task to the TaskList Array
 	TaskList.push(task);
     //save tasks
     saveTasks(TaskList);
+    //render the tasks into list view
 	renderTasks();
 	//return task;
 }
@@ -95,6 +97,7 @@ function saveTasks(arr){
     tasks = JSON.stringify(TaskList);
     try{
         window.localStorage.setItem("tasks",tasks);
+        showAlert("tasks have been saved");
     }
     catch(err){
         showAlet("we are sorry an error has occured");
